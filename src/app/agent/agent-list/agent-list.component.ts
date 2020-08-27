@@ -1,21 +1,19 @@
 import { AgentService } from '../../services/agent.service';
 import { CountryService } from './../../services/country.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import {FormControl} from '@angular/forms';
 
 import { Country } from "../../interfaces/country";
 import { Agent } from "./../../interfaces/agent";
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'agent-list',
   templateUrl: './agent-list.component.html',
   styleUrls: ['./agent-list.component.scss']
 })
-export class AgentListComponent implements OnInit {
+export class AgentListComponent {
 
-  // allAgents$: Agent[];
   agentCountrySearch = new FormControl();
 
   countries$;
@@ -24,39 +22,20 @@ export class AgentListComponent implements OnInit {
   country: string;
 
   constructor(
-    route: ActivatedRoute,
     private agentService: AgentService,
     private countryService: CountryService) {
 
-    this.agentService.getAgents(2).subscribe(agents => {
-      this.agents = agents;
-
-      route.queryParamMap.subscribe(params => {
-        this.country = params.get('country');
-
-        // Set the filteredAgents array
-        this.filteredAgents = (this.country) ?
-          this.agents.filter(a => a.City === this.country) :
-          this.agents;
-      });
-    });
-
     this.countries$ = this.countryService.getCountries();
-
-    // this.agentService.getAgentCountryId(33)
-    // .subscribe(params => {
-    //   console.log('params', params);
-    // });
-
   }
 
-  // getAgents(Id) {
-  //   console.log('Id', Id);
-  // }
+  displayAgents(agentCountryId: number, agentCountry: string) {
+    this.agentService.getAgents(agentCountryId)
+      .subscribe(agents => {
+        this.agents = agents;
 
-  ngOnInit(): void {
-    // this.dataService.getAllAgents()
-    // .subscribe((data: Agent[]) => this.allAgents = data);
+        // Set the filteredAgents array
+        this.filteredAgents = (agentCountry) ? this.agents.filter(a => a.Country === agentCountry) : this.agents;
+    });
   }
 
 }

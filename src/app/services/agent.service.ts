@@ -19,9 +19,9 @@ export class AgentService {
   constructor(private http: HttpClient) {
   }
 
-  getAgents(Id): Observable<Agent[]> {
+  getAgents(countryId): Observable<Agent[]> {
     console.log('Getting list of agents from the server.');
-    const params =  this.params.set('agentCountryId', Id);
+    const params =  this.params.set('agentCountryId', countryId);
 
     return this.http.get<Agent[]>(this.agentURL, {params});
   }

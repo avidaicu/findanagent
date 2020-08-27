@@ -10,8 +10,8 @@
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
         *ngFor="let c of countries$ | async"
+        (click)="displayAgents(c.Id, c.Country)"
         routerLink="/"
-        [queryParams]="{ country: c.Id}"
         [value]="c.Country">
         {{c.Country}}
       </mat-option>
@@ -21,7 +21,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-4" *ngFor='let agent of agents'>
+  <div class="col-sm-12" *ngFor='let agent of agents'>
       <mat-card>
         <mat-card-title>{{agent.Name}}</mat-card-title>
         <mat-card-subtitle>{{agent.Addr1}}</mat-card-subtitle>
