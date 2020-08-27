@@ -1,10 +1,12 @@
-import { DataService } from './../../shared/data.service';
+import { AgentService } from '../../services/agent.service';
+import { CountryService } from './../../services/country.service';
+
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
-import { Agent } from "./../../shared/agent";
-import { Country } from "./../../shared/country";
-
+import { Country } from "../../interfaces/country";
+import { Agent } from "./../../interfaces/agent";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'agent-list',
@@ -13,36 +15,48 @@ import { Country } from "./../../shared/country";
 })
 export class AgentListComponent implements OnInit {
 
-  myControl = new FormControl();
+  // allAgents$: Agent[];
+  agentCountrySearch = new FormControl();
 
-  allAgents: Agent[];
-  allAgentsCountries: Country[];
-  // selectedAgentCountryId: Agent;
+  countries$;
+  agents: Agent[] = [];
+  filteredAgents: Agent[] = [];
+  country: string;
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    route: ActivatedRoute,
+    private agentService: AgentService,
+    private countryService: CountryService) {
+
+    this.agentService.getAgents(2).subscribe(agents => {
+      this.agents = agents;
+
+      route.queryParamMap.subscribe(params => {
+        this.country = params.get('country');
+
+        // Set the filteredAgents array
+        this.filteredAgents = (this.country) ?
+          this.agents.filter(a => a.City === this.country) :
+          this.agents;
+      });
+    });
+
+    this.countries$ = this.countryService.getCountries();
+
+    // this.agentService.getAgentCountryId(33)
+    // .subscribe(params => {
+    //   console.log('params', params);
+    // });
+
+  }
+
+  // getAgents(Id) {
+  //   console.log('Id', Id);
+  // }
 
   ngOnInit(): void {
-    this.dataService.getAllAgents()
-    .subscribe(
-      (data: Agent[]) => this.allAgents = data,
-      (err: any) => console.log(err),
-      () => console.log('All done getting agents.')
-    );
-
-    this.dataService.getAllAgentsCountries()
-    .subscribe(
-      (data: Country[]) => this.allAgentsCountries = data,
-      (err: any) => console.log(err),
-      () => console.log('All done getting countries.')
-    );
-
-    // let agentCountryId: number = parseInt(this.route.snapshot.params['id']);
-
-    // this.dataService.getAgentCountryId(agentCountryId)
-    // .subscribe(
-    //   (data: Agent) => this.selectedAgentCountryId = data,
-    //   (err: any) => console.log(err)
-    // );
+    // this.dataService.getAllAgents()
+    // .subscribe((data: Agent[]) => this.allAgents = data);
   }
 
 }

@@ -1,4 +1,3 @@
-<!-- <agent-countries></agent-countries> -->
 <div class="field-group">
   <mat-form-field class="example-full-width">
     <input type="text"
@@ -19,26 +18,3 @@
    <!-- <mat-error></mat-error> -->
   </mat-form-field>
 </div>
-
-<div class="row">
-  <div class="col-sm-4" *ngFor='let agent of agents'>
-      <mat-card>
-        <mat-card-title>{{agent.Name}}</mat-card-title>
-        <mat-card-subtitle>{{agent.Addr1}}</mat-card-subtitle>
-        <mat-card-content>
-          <ul>
-            <li>{{agent.City}}</li>
-            <li>{{agent.Postcode}}</li>
-            <li>{{agent.State}}</li>
-          </ul>
-          <p>Contact Person: {{agent.ContactName}}</p>
-          <p>Website: {{agent.URL}}</p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-</div>
-
-
-
-
-

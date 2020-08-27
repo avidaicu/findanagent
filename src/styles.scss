@@ -1,5 +1,10 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body {
   font-family: Roboto, Arial, sans-serif ;
+  background: rgba(0,0,0,.10);
+}
+
+.mat-card {
+  margin-bottom:10px;
 }
