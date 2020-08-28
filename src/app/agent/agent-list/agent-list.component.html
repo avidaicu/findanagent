@@ -5,15 +5,15 @@
            placeholder="Find an agent by country"
            aria-label="Number"
            matInput
-           [formControl]="agentCountrySearch"
+           [formControl]="agentSearch"
            [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
-        *ngFor="let c of countries$ | async"
-        (click)="displayAgents(c.Id, c.Country)"
+        *ngFor="let option of filteredOptions | async"
+        (click)="onAgentCountrySelect(option.Id)"
         routerLink="/"
-        [value]="c.Country">
-        {{c.Country}}
+        [value]="option.Country">
+        {{option.Country}}
       </mat-option>
     </mat-autocomplete>
    <!-- <mat-error></mat-error> -->
@@ -27,12 +27,12 @@
         <mat-card-subtitle>{{agent.Addr1}}</mat-card-subtitle>
         <mat-card-content>
           <ul>
-            <li>{{agent.City}}</li>
-            <li>{{agent.Postcode}}</li>
-            <li>{{agent.State}}</li>
+            <li *ngIf="agent.City">{{agent.City}}</li>
+            <li *ngIf="agent.Postcode">{{agent.Postcode}}</li>
+            <li *ngIf="agent.State">{{agent.State}}</li>
           </ul>
           <p>Contact Person: {{agent.ContactName}}</p>
-          <p>Website: {{agent.URL}}</p>
+          <p *ngIf="agent.URL">Website: <a href="{{agent.URL}}">{{agent.URL}}</a></p>
         </mat-card-content>
       </mat-card>
     </div>

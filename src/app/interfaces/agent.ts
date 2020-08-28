@@ -6,5 +6,4 @@ export class Agent {
     State: string;
     ContactName: string;
     URL: string;
-    Country: string;
 }
