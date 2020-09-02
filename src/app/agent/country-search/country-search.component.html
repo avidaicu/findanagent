@@ -9,8 +9,6 @@
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option
         *ngFor="let c of countries$ | async"
-        routerLink="/"
-        [queryParams]="{ country: c.Id}"
         [value]="c.Country">
         {{c.Country}}
       </mat-option>

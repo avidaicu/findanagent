@@ -1,4 +1,4 @@
-import { CountryService } from './../../services/country.service';
+import { CountryService } from '../../services/country.service';
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 
@@ -6,11 +6,11 @@ import { Country } from "../../interfaces/country";
 
 
 @Component({
-  selector: 'agent-countries',
-  templateUrl: './agent-countries.component.html',
-  styleUrls: ['./agent-countries.component.scss']
+  selector: 'country-search',
+  templateUrl: './country-search.component.html',
+  styleUrls: ['./country-search.component.scss']
 })
-export class AgentCountriesComponent implements OnInit {
+export class CountrySearchComponent implements OnInit {
 
   agentCountrySearch = new FormControl();
 

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgentListComponent } from './agent-countries.component';
+import { CountrySearchComponent } from './country-search.component';
 
 describe('AgentListComponent', () => {
-  let component: AgentListComponent;
-  let fixture: ComponentFixture<AgentListComponent>;
+  let component: CountrySearchComponent;
+  let fixture: ComponentFixture<CountrySearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AgentListComponent ]
+      declarations: [ CountrySearchComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AgentListComponent);
+    fixture = TestBed.createComponent(CountrySearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

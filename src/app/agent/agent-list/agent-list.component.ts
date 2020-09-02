@@ -9,11 +9,7 @@ import { map, startWith, tap } from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatButtonToggleChange} from '@angular/material/button-toggle';
-
-
-import {PageEvent} from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
-
 
 @Component({
   selector: 'agent-list',
@@ -43,10 +39,6 @@ export class AgentListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['Name', 'Addr1', 'ContactName', 'URL'];
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   tableDataSource: MatTableDataSource<Agent>;
-
-  pageEvent: PageEvent;
-
-
 
   constructor(
     private agentService: AgentService,

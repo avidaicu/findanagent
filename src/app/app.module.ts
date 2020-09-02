@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 
 // Material section
@@ -20,14 +19,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AgentListComponent } from './agent/agent-list/agent-list.component';
-import { AgentCountriesComponent } from './agent/agent-countries/agent-countries.component';
+import { CountrySearchComponent } from './agent/country-search/country-search.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AgentListComponent,
-    AgentCountriesComponent
+    CountrySearchComponent
   ],
   imports: [
     BrowserModule,
@@ -42,10 +41,7 @@ import { AgentCountriesComponent } from './agent/agent-countries/agent-countries
     MatButtonModule,
     MatButtonToggleModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    RouterModule.forRoot([
-      { path: '', component: AgentListComponent}
-    ])
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

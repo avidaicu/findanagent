@@ -16,7 +16,6 @@
                   <mat-option
                     *ngFor="let option of filteredOptions | async"
                     (click)="onAgentCountrySelect(option)"
-                    routerLink="/"
                     [value]="option.Country">
                     {{option.Country}}
                   </mat-option>
