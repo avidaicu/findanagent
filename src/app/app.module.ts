@@ -12,6 +12,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -36,6 +39,8 @@ import { AgentCountriesComponent } from './agent/agent-countries/agent-countries
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot([

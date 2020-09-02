@@ -1,6 +1,6 @@
 import { AgentService } from '../../services/agent.service';
 import { CountryService } from './../../services/country.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Agent } from "./../../interfaces/agent";
 import { Country } from './../../interfaces/country';
@@ -8,53 +8,64 @@ import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
+import {MatButtonToggleChange} from '@angular/material/button-toggle';
+
 
 import {PageEvent} from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'agent-list',
   templateUrl: './agent-list.component.html',
   styleUrls: ['./agent-list.component.scss']
 })
-export class AgentListComponent implements OnInit {
+export class AgentListComponent implements OnInit, OnDestroy {
+
+  subscription: Subscription;
+
+  heading: string;
 
   agentSearch = new FormControl();
 
   countries$;
   agents: Agent[] = [];
   filteredOptions: Observable<Country[]>;
+  countries: Country[] = [];
 
-  showMyContainer: boolean = false;
-  isShow: boolean = false;
+  toggle: boolean = true;
+  toggleVisibility: boolean = false;
+
+  toggleView(change: MatButtonToggleChange){
+    this.toggle = change.value;
+  }
 
   displayedColumns: string[] = ['Name', 'Addr1', 'ContactName', 'URL'];
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  // tableDataSource: MatTableDataSource<any>;
   tableDataSource: MatTableDataSource<Agent>;
 
-  // MatPaginator Inputs
-  // length = 100;
-  // pageIndex = 0;
-  // pageSize = 10;
-  // pageSizeOptions: [1, 2, 5, 10];
-
-  // MatPaginator Output
   pageEvent: PageEvent;
+
+
 
   constructor(
     private agentService: AgentService,
     private countryService: CountryService) {
   }
 
-  // onPageChange(e: PageEvent) {
-  //   console.log(e);
-  //   this.pageIndex = e.pageIndex;
-  //   this.pageSize = e.pageSize;
-  //   this.loadData(this.pageIndex, this.pageSize);
-  // }
-
   ngOnInit(){
-    this.isShow = true;
+    this.toggleVisibility = false;
+
+    // Show a default country
+    this.agentSearch.patchValue('China PRC');
+    this.heading = 'China PRC';
+
+    this.agentService.getAgents(44)
+    .subscribe(agents => {
+      this.toggleVisibility = true;
+      this.agents = agents;
+      this.initializeTable(agents);
+    });
 
     this.countryService.getCountries().subscribe(countries => {
       this.countries$ = countries;
@@ -66,28 +77,30 @@ export class AgentListComponent implements OnInit {
     });
   }
 
-  // loadData(pageIndex, pageSize) {
-  //   this.tableDataSource = new MatTableDataSource<object>(this.agents.slice(pageIndex, pageIndex + pageSize));
-  // }
-
   filterCountries(country: string): Country[] {
     return this.countries$.filter((option: Country) =>
       option.Country.toLowerCase().indexOf(country.toLowerCase()) === 0);
   }
 
-  onAgentCountrySelect(agentCountryId: number) {
-    this.isShow = false;
-    // this.showMyContainer = false;
-
-    this.agentService.getAgents(agentCountryId)
+  onAgentCountrySelect(option) {
+    this.heading = option.Country;
+    this.subscription = this.agentService.getAgents(option.Id)
       .subscribe(agents => {
+        this.toggleVisibility = true;
         this.agents = agents;
-        this.tableDataSource = new MatTableDataSource(agents);
-        this.tableDataSource.paginator = this.paginator;
-
-        // this.loadData(0, this.pageSize);
+        this.initializeTable(agents);
     });
   }
 
+  private initializeTable(agents: Agent[]) {
+    this.tableDataSource = new MatTableDataSource(agents);
+    this.tableDataSource.paginator = this.paginator;
+  }
 
+    // Implementing ngOnDestroy() as we need the subscription to be there for the lifetime of this component because it's possible
+  // that the user might have different windows open (such as one with a list of products and the other with the product edit window)
+  // We want to ensure that the changes are refleting in realtime in both the windows
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
