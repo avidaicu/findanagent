@@ -1,9 +1,52 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-.mat-card {
+.findAnAgent {
+  .container-fluid {
+    background: rgba(0,0,0,.1);
+    margin-bottom: 20px;
+  }
+
+  h4 {
+    font-size: 2rem;
+    font-weight: normal;
+    float:left;
+  }
+
+  .toggleView {
+    float:right;
+    margin-bottom: 20px;
+  }
+
+  .mat-form-field {
+    padding:20px;
+    background: #fff;
+
+    input {
+      font-size: 1.4rem;
+    }
+  }
+
+  table {
+    width: 100%;
+  }
+
+  .mat-card {
     max-width: none;
     margin: 0 0 20px 0;
     padding: 15px 15px 15px 21px;
     word-break: break-word;
     position: relative;
+    height: 100%;
+  }
+
+  .mat-card-content ul {
+    list-style:none;
+    padding:0;
+  }
 }
+
+//overrides
+.agents-list .col-md-12 {
+  margin-bottom: 20px;
+}
+

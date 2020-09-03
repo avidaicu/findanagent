@@ -13,12 +13,15 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AgentListComponent } from './agent/agent-list/agent-list.component';
+import { AgentGridComponent } from './agent/agent-list/agent-grid.component';
 import { CountrySearchComponent } from './agent/country-search/country-search.component';
 
 
@@ -26,6 +29,7 @@ import { CountrySearchComponent } from './agent/country-search/country-search.co
   declarations: [
     AppComponent,
     AgentListComponent,
+    AgentGridComponent,
     CountrySearchComponent
   ],
   imports: [
@@ -40,6 +44,7 @@ import { CountrySearchComponent } from './agent/country-search/country-search.co
     MatPaginatorModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatProgressBarModule,
     BrowserAnimationsModule,
     HttpClientModule
   ],

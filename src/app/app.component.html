@@ -1,7 +1,56 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="col-sm-12"> -->
-      <agent-list></agent-list>
-    <!-- </div>
+<div class="findAnAgent">
+
+  <div class="container-fluid">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="field-group">
+            <country-search (agentSelect)="onAgentCountrySelect($event)"></country-search>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div> -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>{{heading}}</h4>
+        <mat-button-toggle-group *ngIf="toggleVisibility" [value]="toggle" (change)="toggleView($event)" class="toggleView">
+          <mat-button-toggle [value]="true">Grid
+          </mat-button-toggle>
+          <mat-button-toggle [value]="false">List
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+
+    <div [hidden]="!toggle">
+      <div class="row agents-list">
+          <agent-grid class="col-md-12" *ngFor='let agent of pagedList' [agent]="agent"></agent-grid>
+      </div>
+      <mat-paginator showFirstLastButtons
+        [length]="length"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+    </div>
+
+    <!-- <div [hidden]="toggle">
+      <div class="row">
+        <div class="col-md-12">
+          <agent-list mat-table [dataSource]="tableDataSource" [element]="tableDataSource" class="mat-elevation-z8"></agent-list>
+        </div>
+      </div>
+      <mat-paginator  [pageSize]="10" [pageSizeOptions]="[5,10,20]"></mat-paginator>
+
+    </div> -->
+
+  </div>
+
+</div>
+

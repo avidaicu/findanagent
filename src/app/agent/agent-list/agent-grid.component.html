@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-title>{{agent.Name}}</mat-card-title>
+  <mat-card-subtitle>{{agent.Addr1}}</mat-card-subtitle>
+  <mat-card-content>
+    <ul>
+      <li *ngIf="agent.City">{{agent.City}}</li>
+      <li *ngIf="agent.Postcode">{{agent.Postcode}}</li>
+      <li *ngIf="agent.State">{{agent.State}}</li>
+    </ul>
+    <p>Contact Person: {{agent.ContactName}}</p>
+    <p *ngIf="agent.URL">Website: <a href="{{agent.URL}}">{{agent.URL}}</a></p>
+  </mat-card-content>
+</mat-card>
+
+
+
+
