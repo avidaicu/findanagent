@@ -17,7 +17,7 @@ export class CountrySearchComponent implements OnInit {
 
   agentSearch = new FormControl();
 
-  heading: string;
+  // heading: string;
   countries$;
   filteredOptions: Observable<Country[]>;
   countries: Country[] = [];
@@ -28,16 +28,7 @@ export class CountrySearchComponent implements OnInit {
 
   ngOnInit(){
 
-    // Show a default country
     this.agentSearch.patchValue('China PRC');
-    // this.heading = 'China PRC';
-
-    // this.agentService.getAgents(44)
-    // .subscribe(agents => {
-    //   this.toggleVisibility = true;
-    //   this.agents = agents;
-    //   // this.initializeTable(agents);
-    // });
 
     this.countryService.getCountries().subscribe(countries => {
       this.countries$ = countries;
