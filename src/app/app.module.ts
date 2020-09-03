@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 // Material section
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -15,14 +14,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { AgentListComponent } from './agent/agent-list/agent-list.component';
 import { AgentGridComponent } from './agent/agent-list/agent-grid.component';
 import { CountrySearchComponent } from './agent/country-search/country-search.component';
+import { AgentsComponent } from './agents.component';
 
 
 @NgModule({
@@ -30,7 +28,8 @@ import { CountrySearchComponent } from './agent/country-search/country-search.co
     AppComponent,
     AgentListComponent,
     AgentGridComponent,
-    CountrySearchComponent
+    CountrySearchComponent,
+    AgentsComponent
   ],
   imports: [
     BrowserModule,
