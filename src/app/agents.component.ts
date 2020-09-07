@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Agent } from './interfaces/agent';
 import { Subscription } from 'rxjs';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { MatTableDataSource } from '@angular/material/table';
 import { AgentService } from './services/agent.service';
+
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -19,6 +19,8 @@ export class AgentsComponent implements OnInit, OnDestroy {
   agentList: Agent[] = [];
   pagedList: Agent[] = [];
 
+  agent: Agent[] = [];
+
   // Pagination
   pageEvent: PageEvent;
 
@@ -27,12 +29,9 @@ export class AgentsComponent implements OnInit, OnDestroy {
   pageSize: number = 12;
   pageSizeOptions: number[] = [3, 6, 9, 12];
 
-  displayedColumns: string[] = ['Name', 'Addr1', 'ContactName', 'URL'];
-  element;
-  tableDataSource;
+  displayedColumns: string[] = ['Name', 'Address', 'Contact Name', 'URL'];
 
-  toggle: boolean = true;
-  toggleVisibility: boolean = false;
+  isTable: boolean = true;
   showLoadingBar: boolean = false;
 
   constructor(
@@ -40,7 +39,6 @@ export class AgentsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.toggleVisibility = false;
     this.showLoadingBar = true;
 
     // Show a default country
@@ -48,21 +46,12 @@ export class AgentsComponent implements OnInit, OnDestroy {
 
     this.agentService.getAgents(44)
     .subscribe(agents => {
-      this.agentList = agents;
-
-      this.toggleVisibility = true;
-      this.showLoadingBar = false;
-
-      this.pagedList = this.agentList.slice(0, 12);
-      this.length = this.agentList.length;
-
-      this.tableDataSource = new MatTableDataSource(agents);
-
+      this.agentsInit(agents); // Initializing data-table here
     });
   }
 
-  toggleView(change: MatButtonToggleChange){
-    this.toggle = change.value;
+  toggleDisplay(change: MatButtonToggleChange){
+    this.isTable = change.value;
   }
 
   onAgentCountrySelect(option) {
@@ -71,20 +60,19 @@ export class AgentsComponent implements OnInit, OnDestroy {
 
     this.subscription = this.agentService.getAgents(option.Id)
       .subscribe(agents => {
-        this.agentList = agents;
-
-        this.toggleVisibility = true;
-        this.showLoadingBar = false;
-
-        this.pagedList = this.agentList.slice(0, 12);
-        this.length = this.agentList.length;
-
-        this.tableDataSource = new MatTableDataSource(agents);
+        this.agentsInit(agents); // Initializing data-table here
     });
   }
 
+  agentsInit(agents){
+    this.agentList = agents;
+    //let numberCheckRegex = /\d+/;
+    this.showLoadingBar = false;
+    this.pagedList = this.agentList.slice(0, 12);
+    this.length = this.agentList.length;
+  }
+
   onPageChange(event?:PageEvent){
-    console.log('event', event);
     let startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
     if(endIndex > this.length){

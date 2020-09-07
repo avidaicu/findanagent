@@ -13,6 +13,7 @@ import { startWith, map } from 'rxjs/operators';
 
 export class CountrySearchComponent implements OnInit {
 
+  /** Event Emitter when a country option is selected */
   @Output() agentSelect = new EventEmitter();
 
   agentSearch = new FormControl();
