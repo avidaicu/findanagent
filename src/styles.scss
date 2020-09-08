@@ -1,15 +1,28 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .findAnAgent {
-  .container-fluid {
-    background: rgba(0,0,0,.1);
-    margin-bottom: 20px;
+  // .container-fluid {
+  //   background: rgba(0,0,0,.1);
+  //   margin-bottom: 20px;
+  // }
+
+  .country-search {
+    .mat-form-field {
+      display:block;
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 30px;
+      width:30%;
+    }
   }
 
-  h4 {
-    font-size: 2rem;
+  h3 {
+    position: absolute;
+    top: -24px;
+    right: 0;
+    font-size: 4rem;
     font-weight: normal;
-    float:left;
+    color:#00000010;
   }
 
   .toggleView {
@@ -18,8 +31,6 @@
   }
 
   .mat-form-field {
-    padding:20px;
-
     input {
       font-size: 1.4rem;
     }
@@ -36,11 +47,19 @@
     word-break: break-word;
     position: relative;
     height: 100%;
+
+    .mat-card-title {
+      color: #717171;
+    }
   }
 
   .mat-card-content ul {
     list-style:none;
     padding:0;
+  }
+
+  .mat-paginator {
+    margin-bottom: 40px;
   }
 }
 

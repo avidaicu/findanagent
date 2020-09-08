@@ -1,23 +1,15 @@
 <div class="findAnAgent">
 
-  <div class="container-fluid">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="field-group">
-            <country-search
-              (agentSelect)="onAgentCountrySelect($event)">
-            </country-search>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h4>{{heading}}</h4>
+        <h3>{{heading}}</h3>
+
+        <div class="field-group">
+          <country-search class="country-search"
+            (agentSelect)="onAgentCountrySelect($event)">
+          </country-search>
+        </div>
         <mat-button-toggle-group [value]="isTable" (change)="toggleDisplay($event)" class="toggleView">
           <mat-button-toggle [value]="true">Grid
           </mat-button-toggle>
@@ -26,6 +18,7 @@
         </mat-button-toggle-group>
       </div>
     </div>
+
     <mat-progress-bar mode="indeterminate" *ngIf="showLoadingBar"></mat-progress-bar>
 
     <!-- Grid View -->
@@ -42,8 +35,20 @@
     <div [hidden]="isTable">
       <div class="row">
         <div class="col-md-12">
-          <agent-table [agentTable]="pagedList" [tableColumns]="displayedColumns">
-          </agent-table>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th *ngFor="let tableColumnHeader of tableColumnHeaders">
+                  {{tableColumnHeader}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr agent-table *ngFor="let item of pagedList"
+                [item]="item">
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -59,7 +64,6 @@
         </mat-paginator>
       </div>
     </div>
-
   </div>
 
 </div>

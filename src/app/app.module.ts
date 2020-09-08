@@ -8,7 +8,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
-import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -17,8 +16,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { AgentTableComponent } from './agent/agent-display/agent-table.component';
-import { AgentGridComponent } from './agent/agent-display/agent-grid.component';
+import { AgentTableComponent } from './agent/agent-list/agent-table.component';
+import { AgentGridComponent } from './agent/agent-list/agent-grid.component';
 import { CountrySearchComponent } from './agent/country-search/country-search.component';
 import { AgentsComponent } from './agents.component';
 
@@ -38,7 +37,6 @@ import { AgentsComponent } from './agents.component';
     MatInputModule,
     MatSelectModule,
     MatCardModule,
-    MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
     MatButtonToggleModule,

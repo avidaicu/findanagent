@@ -1,9 +1,9 @@
+// import { AgentTableComponent } from './agent/agent-list/agent-table.component';
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Agent } from './interfaces/agent';
 import { Subscription } from 'rxjs';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { AgentService } from './services/agent.service';
-
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -19,20 +19,20 @@ export class AgentsComponent implements OnInit, OnDestroy {
   agentList: Agent[] = [];
   pagedList: Agent[] = [];
 
-  agent: Agent[] = [];
+  agent: Agent;
+  item: Agent;
+
+  tableColumnHeaders: string[] = ['Name', 'Address', 'Contact Name', 'URL'];
+
+  isTable: boolean = true;
+  showLoadingBar: boolean = false;
 
   // Pagination
   pageEvent: PageEvent;
-
   length: number = 0;
   pageIndex:number = 0;
   pageSize: number = 12;
   pageSizeOptions: number[] = [3, 6, 9, 12];
-
-  displayedColumns: string[] = ['Name', 'Address', 'Contact Name', 'URL'];
-
-  isTable: boolean = true;
-  showLoadingBar: boolean = false;
 
   constructor(
     private agentService: AgentService) {
@@ -46,7 +46,7 @@ export class AgentsComponent implements OnInit, OnDestroy {
 
     this.agentService.getAgents(44)
     .subscribe(agents => {
-      this.agentsInit(agents); // Initializing data-table here
+      this.agentsInit(agents);
     });
   }
 
@@ -60,13 +60,12 @@ export class AgentsComponent implements OnInit, OnDestroy {
 
     this.subscription = this.agentService.getAgents(option.Id)
       .subscribe(agents => {
-        this.agentsInit(agents); // Initializing data-table here
+        this.agentsInit(agents);
     });
   }
 
   agentsInit(agents){
     this.agentList = agents;
-    //let numberCheckRegex = /\d+/;
     this.showLoadingBar = false;
     this.pagedList = this.agentList.slice(0, 12);
     this.length = this.agentList.length;
@@ -83,7 +82,7 @@ export class AgentsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    // Still to do: Any other observables that need unsubscribing?
+    // Still to do: Check all observable subscriptions and unsubscribe if needed.
   }
 
 }

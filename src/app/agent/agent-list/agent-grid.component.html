@@ -8,7 +8,7 @@
       <li *ngIf="agent.State">{{agent.State}}</li>
     </ul>
     <p>Contact Person: {{agent.ContactName}}</p>
-    <p *ngIf="agent.URL">Website: <a href="{{agent.URL}}">{{agent.URL}}</a></p>
+    <p *ngIf="agent.URL && validURL">Website: <a href="{{agent.URL}}">{{agent.URL}}</a></p>
   </mat-card-content>
 </mat-card>
 
